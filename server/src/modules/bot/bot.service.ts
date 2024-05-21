@@ -7,6 +7,8 @@ import { enableTranslator } from './helpers/translator.middleware';
 import { enableSequentionlize } from './helpers/sequentionlize.middleware';
 import { enableSession } from './helpers/session.middleware';
 import { TelegramUserService } from '../telegram-user/telegram-user.service';
+import { enableMessageHistory } from './helpers/messageHistory.middleware';
+import { TelegramMessageService } from '../telegram-message/telegram-message.service';
 
 @Injectable()
 export class BotService implements OnModuleInit {
@@ -15,7 +17,8 @@ export class BotService implements OnModuleInit {
 
   constructor(
     private readonly config: ConfigService,
-    private readonly telegramUserService: TelegramUserService,    
+    private readonly telegramUserService: TelegramUserService,
+    private readonly telegramMessageService: TelegramMessageService,
   ) {
     const telegramToken = config.get('TELEGRAM_TOKEN');
 
@@ -24,6 +27,7 @@ export class BotService implements OnModuleInit {
     this.bot = new Bot<MainContext>(telegramToken);
     this.bot.use(enableSequentionlize());
     this.bot.use(enableSession(telegramUserService));
+    this.bot.use(enableMessageHistory(telegramMessageService));
     this.bot.use(enableTranslator());
 
     this.bot.on('message', async ctx => {
