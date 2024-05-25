@@ -1,22 +1,21 @@
 import { createTranslator } from 'src/i18n/translator';
 import { MainContext } from '../bot.interface';
+import { 
+  DEFAULT_I18N_DIRECTORY, 
+  DEFAULT_I18N_FIRST_NAME, 
+  DEFAULT_I18N_LANGUAGE_CODE 
+} from 'src/config';
 
-
-export const DEAFULT_LOCALE = "en";
-export const DEAFULT_DIRECTORY = "src/i18n/locales/";
-export const DEAFULT_FIRST_NAME = "nameless";
 
 export function enableTranslator() {
   return createTranslator<MainContext>({
-    defaultLocale: DEAFULT_LOCALE,
-    directory: DEAFULT_DIRECTORY,
+    defaultLocale: DEFAULT_I18N_LANGUAGE_CODE,
+    directory: DEFAULT_I18N_DIRECTORY,
     globalTranslationContext(ctx) {
-      // return { userFirstName: ctx.session.firstName ?? '' };
-      return { userFirstName: DEAFULT_FIRST_NAME};
+      return { ctx_firstName: ctx.session.firstName ?? DEFAULT_I18N_FIRST_NAME };
     },
     localeNegotiator:(ctx)=>{
-      // return ctx.session.languageCode ?? DEAFULT_LOCALE;
-      return DEAFULT_LOCALE;
+      return ctx.session.languageCode ?? DEFAULT_I18N_LANGUAGE_CODE;
     }
   });
 }
