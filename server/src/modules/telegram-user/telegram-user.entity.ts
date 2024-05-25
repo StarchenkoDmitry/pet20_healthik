@@ -1,16 +1,13 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({name:"telegram_users"})
+@Entity({ name: 'telegram_users' })
 export class TelegramUser {
-    @PrimaryColumn({ type:"bigint" })
-    id: number;
+  @PrimaryColumn({ type: 'bigint' })
+  id: string;
 
-    @Column({ type:"varchar", length: 256 })
-    firstName: string;
+  @Column({ type: 'varchar', length: 256 })
+  firstName: string;
 
-    @Column("varchar",{ 
-        length: 8, 
-        default: "en"
-    })
-    languageCode: string;
+  @Column({ type: "varchar", length: 8 })
+  languageCode: string;
 }

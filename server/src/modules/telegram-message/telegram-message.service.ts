@@ -20,15 +20,12 @@ export class TelegramMessageService {
     }
   }
 
-  async findOne(id: number): Promise<TelegramMessage | undefined> {
+  async findOne(id: string): Promise<TelegramMessage | null> {
     try {
-      const res = await this.telegramMessageRepository.findOneBy({
-        id,
-      });
-      return res ?? undefined;
+      return await this.telegramMessageRepository.findOneBy({ id });
     } catch (error) {
       console.log('TelegramMessageService.findOne error:', error);
-      return undefined;
+      return null;
     }
   }
 }

@@ -8,10 +8,10 @@ import {
 @Entity({ name: 'telegram_messages' })
 export class TelegramMessage {
   @PrimaryColumn({ type: 'bigint' })
-  id: number;
+  id: string;
 
-  @Column({ type: 'varchar', length: 256 })
-  text: string;
+  @Column({ type: 'varchar', nullable:true })
+  text: string | null | undefined;
   
   @Column({ type: 'timestamp' })
   date: Date;

@@ -11,13 +11,13 @@ export function enableSession(
         return;
     }
 
-    const telgramUser = await telegramUserService.findOne(ctx.from.id);
+    const telgramUser = await telegramUserService.findOne(ctx.from.id.toString());
 
     if (telgramUser) {
       ctx.session = telgramUser;
     } else {
         ctx.session = {
-            id:ctx.from.id,
+            id:ctx.from.id.toString(),
             firstName: ctx.from.first_name,
             languageCode: ctx.from.language_code ?? "en",
         };
