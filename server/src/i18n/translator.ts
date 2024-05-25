@@ -9,9 +9,7 @@ export function createTranslator<TContext extends Context>({
   defaultLocale,
 }: {
   localeNegotiator: LocaleNegotiator<TContext>;
-  globalTranslationContext: (
-    ctx: TContext,
-  ) => Record<string, FluentVariable>;
+  globalTranslationContext: (ctx: TContext) => Record<string, FluentVariable>;
   defaultLocale: string;
   directory: string;
 }) {
