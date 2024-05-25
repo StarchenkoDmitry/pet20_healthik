@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { HandlerNamesType } from '../handler/handler-name-list';
 
 @Entity({ name: 'telegram_users' })
 export class TelegramUser {
@@ -10,4 +11,7 @@ export class TelegramUser {
 
   @Column({ type: "varchar", length: 8 })
   languageCode: string;
+  
+  @Column("varchar",{ length: 256 })
+  currentHandler: HandlerNamesType;
 }
