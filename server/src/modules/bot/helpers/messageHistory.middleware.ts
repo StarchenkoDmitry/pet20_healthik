@@ -1,5 +1,6 @@
 import { MainContext } from '../bot.interface';
 import { MiddlewareFn } from 'grammy';
+import { TelegramMessage } from 'src/modules/telegram-message/telegram-message.entity';
 import { TelegramMessageService } from 'src/modules/telegram-message/telegram-message.service';
 
 export function enableMessageHistory(
@@ -9,14 +10,11 @@ export function enableMessageHistory(
     const message = ctx.message;
 
     if (message) {
-      console.log('ctx.message: ', ctx.message);
-
-      const res = await telegramMessageService.save({
-        id: message.message_id as any,
-        text: message.text ?? '',
-        date: new Date(message.date * 1000),
-        created_at: undefined as any,
-      });
+      const msg = new TelegramMessage();
+      msg.id = message.message_id.toString()
+      msg.text = message.text;
+      msg.date = new Date(message.date * 1000);
+      await telegramMessageService.save(msg);
     }
 
     await next();
