@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import * as cookieParser from "cookie-parser";
 import { ValidationPipe } from '@nestjs/common';
+import { GlobalExceptionHandler } from './shared/filters/global-exception.filter';
+import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +23,9 @@ async function bootstrap() {
     whitelist:true,
     forbidNonWhitelisted:true
   }));
+
+  app.useGlobalFilters(new GlobalExceptionHandler());
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   await app.listen(3000);
 }
