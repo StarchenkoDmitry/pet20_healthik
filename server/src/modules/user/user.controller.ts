@@ -3,6 +3,7 @@ import { MeResponse } from 'src/common/types/user';
 import { GetUser, GetUserId } from '../auth/auth.decorator';
 import { AuthGuard } from '../auth/auth.guard';
 import { User } from './user.entity';
+import { Roles } from './role.decorator';
 
 @Controller('user')
 export class UserController {
@@ -18,4 +19,15 @@ export class UserController {
   async getMeId(@GetUserId() userId): Promise<{ id: string }> {
     return { id: userId };
   }
+
+  @Get('me/is-admin')
+  @Roles('admin')
+  async amIAdmin() {}
+
+  /**
+   * This handler waa added for fun
+   */
+  @Get('me/is-dog')
+  @Roles('dog')
+  async isDog() {}
 }

@@ -6,6 +6,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { Session } from './session.entity';
+import { Role } from './role.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -23,6 +24,9 @@ export class User {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(type => Role, role => role.user)
+  roles: Role[];
 
   @OneToMany(type => Session, session => session.user)
   sessions: Session[];
