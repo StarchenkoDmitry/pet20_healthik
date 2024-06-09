@@ -27,7 +27,9 @@
       "@common/*":["src/app/common/*"],
       "@components/*":["src/app/components/*"],
       "@modules/*":["src/app/modules/*"],
-      "@pages/*":["src/app/pages/*"]
+      "@pages/*":["src/app/pages/*"],
+      "@environment":["src/environments/environment"],
+      "@environments/*":["src/environments/*"]
     }
   },
   "angularCompilerOptions": {
