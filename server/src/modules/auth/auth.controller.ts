@@ -63,7 +63,7 @@ export class AuthController {
   ): Promise<SignInResponse> {
     const newSessionToken = await this.authService.signIn(signInData);
 
-    if (newSessionToken && newSessionToken._t === 'seccess') {
+    if (newSessionToken._t === 'seccess') {
       setCookieSession(res, newSessionToken.token);
       return true;
     }
