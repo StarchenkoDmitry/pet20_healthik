@@ -1,0 +1,68 @@
+<div class="p-8 w-full max-w-[28rem] bg-gray-100 rounded-3xl">
+
+  <h2 class="_m-2 m-0 text-3xl text-center text-blue-500">SignUp</h2>
+
+  <form [formGroup]="signupForm" (submit)="onSubmit()" class="p-2">
+
+    <div class="mt-6">
+      <p-floatLabel class="block">
+        <input
+          pInputText
+          class="w-full"
+          id="name"
+          formControlName="name"
+        />
+        <label for="name">*Name</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="mt-8">
+      <p-floatLabel class="block">
+        <input
+          pInputText
+          class="w-full"
+          id="email"
+          formControlName="email"
+        />
+        <label for="email">Email</label>
+      </p-floatLabel>
+
+      <small
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="p-2 text-sm font-medium block p-error"
+      >
+        <p *ngIf="email.errors?.['required']">Emain is required</p>
+        <p *ngIf="email.errors?.['email']">It isn't email</p>
+        <p *ngIf="email.errors?.['minlength']">Min email lenght {{minEmailLanght}}</p>
+        <p *ngIf="email.errors?.['maxlength']">Min email lenght {{maxEmailLanght}}</p>
+      </small>
+    </div>
+
+    <div class="mt-8">
+      <p-floatLabel class="block">
+        <p-password
+          styleClass="w-full"
+          inputStyleClass="w-full"
+          id="password"
+          formControlName="password"
+          [feedback]="false"
+          [toggleMask]="true"
+        />
+        <label for="password">Password</label>
+      </p-floatLabel>
+      <small
+        *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="p-2 text-sm font-medium block p-error"
+      >
+        <p *ngIf="password.errors?.['required']">Password is required</p>
+        <p *ngIf="password.errors?.['minlength']">Min password lenght {{minPasswordLanght}}</p>
+        <p *ngIf="password.errors?.['maxlength']">Min password lenght {{maxPasswordLanght}}</p>
+      </small>
+    </div>
+
+    <div class="mt-4">
+      <p-button [disabled]="signupForm.invalid || loading" label="Create your account" type="submit" />
+    </div>
+
+  </form>
+</div>
