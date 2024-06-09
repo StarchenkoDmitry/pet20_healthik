@@ -29,7 +29,8 @@
       "@modules/*":["src/app/modules/*"],
       "@pages/*":["src/app/pages/*"],
       "@environment":["src/environments/environment"],
-      "@environments/*":["src/environments/*"]
+      "@environments/*":["src/environments/*"],
+      "@shared/*":["src/app/shared/*"]
     }
   },
   "angularCompilerOptions": {
