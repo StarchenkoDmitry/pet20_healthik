@@ -1,0 +1,79 @@
+<div class="wrapper-header">
+  <header class="header">
+
+    <a href="/" class="logo">Healthik</a>
+
+    <div class="header-nav">
+      <nav class="nav">
+        <ul class="nav__list">
+          <ng-container *ngTemplateOutlet="url__new_conversation"></ng-container>
+          <ng-container *ngTemplateOutlet="url__about_us"></ng-container>
+        </ul>
+      </nav>
+      <a href="/authorize" class="p-button btn_authorize">Sign in</a>
+    </div>
+
+    <div class="block-btn-menu">
+      <p-button
+        class="mx-2"
+        icon="pi pi-align-justify text-[1.2rem]"
+        label="Menu"
+        ssize="large"
+        severity="secondary"
+        (onClick)="openMenu()"
+      />
+    </div>
+
+    <ng-container *ngIf="showMenu; then menu"></ng-container>
+
+  </header>
+</div>
+
+<ng-template #menu>
+  <div class="wrapper-menu">
+    <div class="menu-container">
+
+      <div class="header-menu">
+        <p-button
+          class="mx-2"
+          icon="pi pi-angle-left"
+          label="Close"
+          ssize="large"
+          severity="secondary"
+          (onClick)="closeMenu()"
+        />
+      </div>
+
+      <nav class="menu-nav">
+        <ul class="menu-nav__list">
+          <ng-container *ngTemplateOutlet="url__new_conversation"></ng-container>
+          <ng-container *ngTemplateOutlet="url__about_us"></ng-container>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #url__new_conversation>
+  <li>
+    <a
+      href="/new-conversation"
+      class="p-button p-button-secondary url_mode"
+    >
+      <i class="pi pi-comment text-[1.25rem]"></i>
+      <span class="ml-2 font-normal">New conversation</span>
+    </a>
+  </li>
+</ng-template>
+
+<ng-template #url__about_us>
+  <li>
+    <a
+      href="/about-us"
+      class="p-button p-button-secondary url_mode"
+    >
+      <span class="font-normal">About us</span>
+    </a>
+  </li>
+</ng-template>
