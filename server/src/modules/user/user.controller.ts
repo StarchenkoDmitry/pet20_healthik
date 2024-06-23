@@ -3,7 +3,7 @@ import { MeResponse } from 'src/common/types/user';
 import { GetUser, GetUserId } from '../auth/auth.decorator';
 import { AuthGuard } from '../auth/auth.guard';
 import { User } from './user.entity';
-import { Roles } from './role.decorator';
+import { Roles } from './role/role.decorator';
 
 @Controller('user')
 export class UserController {

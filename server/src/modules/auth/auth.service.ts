@@ -7,7 +7,7 @@ import {
   generateRandomSessionToken,
   hashPassword,
 } from './auth.utils';
-import { Session } from '../user/session.entity';
+import { Session } from '../user/session/session.entity';
 import { DAY } from 'src/common/constants/date';
 import {
   CreateSessionResult,

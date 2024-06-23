@@ -5,8 +5,8 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { Session } from './session.entity';
-import { Role } from './role.entity';
+import { Session } from './session/session.entity';
+import { Role } from './role/role.entity';
 
 @Entity({ name: 'users' })
 export class User {

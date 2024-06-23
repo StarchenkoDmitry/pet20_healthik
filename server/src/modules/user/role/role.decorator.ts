@@ -3,8 +3,8 @@ import {
   UseGuards,
   applyDecorators,
 } from '@nestjs/common';
-import { AuthGuard } from '../auth/auth.guard';
 import { RoleGuard } from './role.guard';
+import { AuthGuard } from 'src/modules/auth/auth.guard';
 
 export function Roles(...roles: string[]) {
   if (roles.includes('')) {
