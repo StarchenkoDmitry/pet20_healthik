@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
+  IsEmailRegisteredRequest,
+  IsEmailRegisteredResponse,
   LogoutResponse,
   SignInRequest,
   SignInResponse,
@@ -29,5 +31,9 @@ export class AuthService {
     return this.http.post<LogoutResponse>(`${environment.baseUrl}auth/logout`, {}, {
       withCredentials: true
     });
+  }
+
+  isEmailRegistered(data:IsEmailRegisteredRequest) {
+    return this.http.post<IsEmailRegisteredResponse>(`${environment.baseUrl}auth/is-email-registered`,data);
   }
 }
