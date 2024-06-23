@@ -9,6 +9,11 @@ export class SignInRequest {
   password!: string;
 }
 
+export class IsEmailRegisteredRequest {
+  email!: string;
+}
+
 export type SignUpResponse = { id: string };
 export type SignInResponse = boolean;
 export type LogoutResponse = boolean;
+export type IsEmailRegisteredResponse = boolean;
