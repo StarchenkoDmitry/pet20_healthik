@@ -1,0 +1,98 @@
+<div class="mx-2">
+  <h1 class="font-mono text-center">Healthik</h1>
+
+  <div class="m-4 mx-auto p-4 max-w-[26rem] bg-slate-100 rounded-2xl ">
+    <h2 class="m-0 font-mono text-center">Sign up</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="mt-6">
+        <p-floatLabel class="block">
+          <input
+            pInputText
+            class="w-full"
+            id="name"
+            formControlName="name"
+          />
+          <label for="name">*Name</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="mt-8">
+        <p-floatLabel>
+          <input
+            pInputText
+            class="w-full"
+            id="email"
+            formControlName="email"
+          />
+          <label for="email">Email</label>
+        </p-floatLabel>
+        <small
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="p-2 text-sm font-medium block p-error"
+        >
+          <p *ngIf="email.errors?.['required']">Email is required</p>
+          <p *ngIf="email.errors?.['email']">It isn't email</p>
+          <p *ngIf="email.errors?.['minlength']">Min email lenght -99</p>
+          <p *ngIf="email.errors?.['maxlength']">Max email lenght 99</p>
+          <p *ngIf="email.errors?.['emailExists']">Email is exist</p>
+        </small>
+      </div>
+
+      <div class="mt-8">
+        <p-floatLabel class="block">
+          <p-password
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            id="password"
+            formControlName="password"
+            [feedback]="false"
+            [toggleMask]="true"
+          />
+          <label for="password">Password</label>
+        </p-floatLabel>
+        <small
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="p-2 text-sm font-medium block p-error"
+        >
+          <p *ngIf="password.errors?.['required']">Password is required</p>
+          <p *ngIf="password.errors?.['minlength']">Min password lenght {{minPasswordLanght}}</p>
+          <p *ngIf="password.errors?.['maxlength']">Max password lenght {{maxPasswordLanght}}</p>
+        </small>
+      </div>
+
+      <div class="mt-8">
+        <p-floatLabel class="block">
+          <p-password
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            id="confirm_password"
+            formControlName="confirm_password"
+            [feedback]="false"
+            [toggleMask]="true"
+          />
+          <label for="confirm_password">Confirm password</label>
+        </p-floatLabel>
+        <small
+          *ngIf="confirm_password.invalid && (confirm_password.dirty || confirm_password.touched)"
+          class="p-2 text-sm font-medium block p-error"
+        >
+          <p *ngIf="confirm_password.errors?.['required']">Password is required</p>
+          <p *ngIf="confirm_password.errors?.['minlength']">Min password lenght {{minPasswordLanght}}</p>
+          <p *ngIf="confirm_password.errors?.['maxlength']">Max password lenght {{maxPasswordLanght}}</p>
+          <p *ngIf="isNotPasswordAMatch">Password and Confirm Password must match</p>
+        </small>
+      </div>
+
+      <div class="mt-4">
+        <p-button
+          [disabled]="!form.valid || loading"
+          label="Create your account"
+          size="small"
+          type="submit"
+        />
+      </div>
+    </form>
+
+  </div>
+</div>
