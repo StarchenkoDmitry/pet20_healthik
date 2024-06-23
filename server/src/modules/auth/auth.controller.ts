@@ -19,9 +19,11 @@ import {
   UnauthorizedException,
   HttpException,
   HttpStatus,
+  Get,
 } from '@nestjs/common';
 import { SignUpDto } from './dto/signup.dto';
 import { SignInDto } from './dto/signin.dto';
+import { AvailableEmailDto } from './dto/is-available-email.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -84,5 +86,12 @@ export class AuthController {
     clearCookieSession(res);
 
     return isLoggedOut.logOuted;
+  }
+
+  @Post('is-email-registered')
+  async isEmailRegistered(
+    @Body() dto: AvailableEmailDto,
+  ): Promise<LogoutResponse> {
+    return this.authService.isEmailRegistered(dto.email);
   }
 }
