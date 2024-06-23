@@ -91,4 +91,8 @@ export class AuthService {
       },
     });
   }
+
+  async isEmailRegistered(email: string) {
+    return await this.userRepository.existsBy({ email });
+  }
 }
