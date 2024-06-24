@@ -8,6 +8,7 @@ import { TelegramUserModule } from './modules/telegram-user/telegram-user.module
 import { TelegramMessageModule } from './modules/telegram-message/telegram-message.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { RoleModule } from './modules/user/role/role.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './modules/auth/auth.module';
 
     UserModule,
     AuthModule,
+    RoleModule,
 
     TelegramUserModule,
     TelegramMessageModule,
