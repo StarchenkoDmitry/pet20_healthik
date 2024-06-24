@@ -1,0 +1,2 @@
+export const MIN_ADMIN_SECRET_LENGTH = 4;
+export const MAX_ADMIN_SECRET_LENGTH = 4 * 1024;
