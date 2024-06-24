@@ -7,6 +7,8 @@ import {
 } from 'typeorm';
 import { Session } from './session/session.entity';
 import { Role } from './role/role.entity';
+import { RoleChange } from './role-change/role-change.entity';
+import { AdminRoleChange } from './admin-role-changes/role-change.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -27,6 +29,12 @@ export class User {
 
   @OneToMany(type => Role, role => role.user)
   roles: Role[];
+
+  @OneToMany(type => RoleChange, roleChange => roleChange.user)
+  roleChanges: RoleChange[];
+
+  @OneToMany(type => AdminRoleChange, adminRoleChange => adminRoleChange.user)
+  adminRoleChanges: AdminRoleChange[];
 
   @OneToMany(type => Session, session => session.user)
   sessions: Session[];
