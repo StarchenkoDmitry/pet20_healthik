@@ -25,7 +25,7 @@ export class UserController {
   async amIAdmin() {}
 
   /**
-   * This handler waa added for fun
+   * This handler was added for fun
    */
   @Get('me/is-dog')
   @Roles('dog')
