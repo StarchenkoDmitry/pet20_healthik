@@ -1,0 +1,31 @@
+<div class="mx-auto my-4 p-4 w-min rounded-lg bg-slate-100">
+  <h2 class="my-0 mb-4">Activate admin role</h2>
+
+  <div *ngIf="!!resultType" class="mb-6">
+    <p *ngIf="resultType === 'success'">You have become an admin</p>
+    <p *ngIf="resultType === 'already-admin'">Already admin.</p>
+    <p *ngIf="resultType === 'wrong-secret'">Wrong secret.</p>
+    <p *ngIf="resultType === 'bad-request' || resultType === 'failed'">
+      Request failed, try again.
+    </p>
+  </div>
+
+  <p-floatLabel>
+    <p-password
+      id="secret"
+      [(ngModel)]="secret"
+      [feedback]="false"
+      [disabled]="panding || becameAdmin"
+    ></p-password>
+    <label for="secret">Secret</label>
+  </p-floatLabel>
+
+  <div class="mt-4">
+    <p-button
+      class="w-full"
+      label="{{ becameAdmin ? 'Already admin' : 'Become admin' }}"
+      [disabled]="panding || becameAdmin"
+      (onClick)="onSubmit()"
+    ></p-button>
+  </div>
+</div>
