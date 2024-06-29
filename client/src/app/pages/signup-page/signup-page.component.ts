@@ -19,7 +19,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '@modules/auth/services/auth.service';
+import { AuthService } from '@core/auth/auth.service';
 import {
   EMAIL_VERIFICATION_DELAY_TIME_MS,
   MAX_EMAIL_LENGTH,

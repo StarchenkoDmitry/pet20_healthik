@@ -1,53 +1,42 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
-import { InputTextModule } from 'primeng/inputtext';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-
-import { AuthService } from '../services/auth.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { AuthService } from '../../../core/auth/auth.service';
 import {
   MAX_EMAIL_LENGTH,
-  MAX_NAME_LENGTH,
   MAX_PASSWORD_LENGTH,
   MIN_EMAIL_LENGTH,
-  MIN_NAME_LENGTH,
   MIN_PASSWORD_LENGTH,
 } from '@common/constants/auth';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { CommonModule } from '@angular/common';
+import { PasswordModule } from 'primeng/password';
 import { isString } from '@shared/utils/check';
 
 @Component({
-  selector: 'signup-form',
+  selector: 'signin-form',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
-
-    InputTextModule,
     FloatLabelModule,
+    InputTextModule,
     PasswordModule,
     ButtonModule,
-
-    CommonModule,
   ],
-  templateUrl: './signup-form.component.html',
-  styleUrl: './signup-form.component.scss',
+  templateUrl: './signin-form.component.html',
+  styleUrl: './signin-form.component.scss',
 })
-export class SignupFormComponent {
+export class SigninFormComponent {
   authService = inject(AuthService);
 
-  signupForm = new FormGroup({
-    name: new FormControl('', [
-      Validators.minLength(MIN_NAME_LENGTH),
-      Validators.maxLength(MAX_NAME_LENGTH),
-    ]),
+  signinForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.email,
@@ -61,14 +50,6 @@ export class SignupFormComponent {
     ]),
   });
 
-  get minPasswordLanght() {
-    return MIN_PASSWORD_LENGTH;
-  }
-
-  get maxPasswordLanght() {
-    return MAX_PASSWORD_LENGTH;
-  }
-
   get minEmailLanght() {
     return MIN_EMAIL_LENGTH;
   }
@@ -77,30 +58,35 @@ export class SignupFormComponent {
     return MAX_EMAIL_LENGTH;
   }
 
-  get name() {
-    return this.signupForm.controls['name'];
+  get minPasswordLanght() {
+    return MIN_PASSWORD_LENGTH;
   }
+
+  get maxPasswordLanght() {
+    return MAX_PASSWORD_LENGTH;
+  }
+
   get email() {
-    return this.signupForm.controls['email'];
+    return this.signinForm.controls['email'];
   }
   get password() {
-    return this.signupForm.controls['password'];
+    return this.signinForm.controls['password'];
   }
 
   loading = false;
 
   async onSubmit() {
-    if (this.signupForm.invalid) return;
+    if (this.signinForm.invalid) return;
 
-    const { name, email, password } = this.signupForm.value;
+    const { email, password } = this.signinForm.value;
 
-    if (!isString(name) || !isString(email) || !isString(password)) return;
+    if (!isString(email) || !isString(password)) return;
 
     if (this.loading) return;
 
     this.loading = true;
 
-    this.authService.signup({ name, email, password }).subscribe({
+    this.authService.signin({ email, password }).subscribe({
       next: () => {
         this.loading = false;
       },
