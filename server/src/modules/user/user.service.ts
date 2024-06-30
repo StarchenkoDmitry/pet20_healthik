@@ -21,14 +21,6 @@ export class UserService {
     return await this.userRepository.findOneBy({ id });
   }
 
-  async findOneByToken(token: string) {
-    return await this.userRepository.findOne({
-      where: {
-        sessions: { token },
-      },
-    });
-  }
-
   async getRoles(userId: string, take: number = 99) {
     return await this.roleRepository.find({
       where: {
