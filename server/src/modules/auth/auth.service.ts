@@ -8,7 +8,6 @@ import {
   hashPassword,
 } from './auth.utils';
 import { Session } from '../user/session/session.entity';
-import { DAY } from 'src/common/constants/date';
 import {
   CreateSessionResult,
   LogOutResult,
@@ -17,6 +16,7 @@ import {
 } from './auth.interface';
 import { SignUpDto } from './dto/signup.dto';
 import { SignInDto } from './dto/signin.dto';
+import { TOKEN_LIFETIME } from 'src/config/auth';
 
 @Injectable()
 export class AuthService {
@@ -75,7 +75,8 @@ export class AuthService {
     try {
       const newSession = new Session();
       newSession.user = user;
-      newSession.expiresIn = new Date(+new Date() + 4 * DAY);
+      newSession.createdAt = new Date();
+      newSession.expiresIn = new Date(new Date().getTime() + TOKEN_LIFETIME);
       newSession.token = generateRandomSessionToken();
       const saved = await this.sessionRepository.save(newSession);
       return { _t: 'seccess', token: saved.token };
@@ -84,10 +85,26 @@ export class AuthService {
     }
   }
 
-  async findOneBySessionToken(token: string) {
+  async findOneUserBySessionToken(token: string) {
     return await this.userRepository.findOneBy({
       sessions: { token },
     });
+  }
+
+  async createSessionByUserId(userId: string): Promise<CreateSessionResult> {
+    try {
+      const user = new User();
+      user.id = userId;
+      const newSession = new Session();
+      newSession.user = user;
+      newSession.createdAt = new Date();
+      newSession.expiresIn = new Date(new Date().getTime() + TOKEN_LIFETIME);
+      newSession.token = generateRandomSessionToken();
+      const saved = await this.sessionRepository.save(newSession);
+      return { _t: 'seccess', token: saved.token };
+    } catch (error) {
+      return { _t: 'failed' };
+    }
   }
 
   async isEmailRegistered(email: string) {
