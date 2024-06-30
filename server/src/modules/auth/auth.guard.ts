@@ -14,11 +14,11 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: Request = context.switchToHttp().getRequest();
-    const session = request.signedCookies[COOKIE_SESSION_TOKEN_KEY];
+    const sessionToken = request.signedCookies[COOKIE_SESSION_TOKEN_KEY];
 
-    if (!session) return false;
+    if (!sessionToken) return false;
 
-    const user = await this.authService.findOneBySession(session);
+    const user = await this.authService.findOneBySessionToken(sessionToken);
 
     if (!user) return false;
     request[REQ_KEY_USER] = user;

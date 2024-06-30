@@ -84,11 +84,9 @@ export class AuthService {
     }
   }
 
-  async findOneBySession(token: string) {
-    return await this.userRepository.findOne({
-      where: {
-        sessions: { token },
-      },
+  async findOneBySessionToken(token: string) {
+    return await this.userRepository.findOneBy({
+      sessions: { token },
     });
   }
 
