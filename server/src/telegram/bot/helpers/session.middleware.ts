@@ -1,6 +1,6 @@
 import { MiddlewareFn } from 'grammy';
 import { MainContext } from '../bot.interface';
-import { TelegramUserService } from 'src/modules/telegram-user/telegram-user.service';
+import { TelegramUserService } from 'src/telegram/telegram-user/telegram-user.service';
 import { 
   DEFAULT_HANDLER_NAME_ON_INITIALIZATION, 
   DEFAULT_I18N_LANGUAGE_CODE 

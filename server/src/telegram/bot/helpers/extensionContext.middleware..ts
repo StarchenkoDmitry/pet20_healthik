@@ -1,7 +1,7 @@
-import { HandlerList } from 'src/modules/handler/handler-list';
+import { HandlerList } from 'src/telegram/handler/handler-list';
 import { GetDBRepositoryFunc, MainContext } from '../bot.interface';
 import { MiddlewareFn } from 'grammy';
-import { HandlerNameList } from 'src/modules/handler/handler-name-list';
+import { HandlerNameList } from 'src/telegram/handler/handler-name-list';
 import { Repository } from 'typeorm';
 
 export function enableExtensionContext({

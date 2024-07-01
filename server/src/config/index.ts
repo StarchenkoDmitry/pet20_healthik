@@ -1,4 +1,4 @@
-import { HandlerNameList, HandlerNamesType } from "src/modules/handler/handler-name-list";
+import { HandlerNameList, HandlerNamesType } from "src/telegram/handler/handler-name-list";
 
 export const DEFAULT_I18N_LANGUAGE_CODE = 'en';
 export const DEFAULT_I18N_DIRECTORY = 'src/i18n/locales/';

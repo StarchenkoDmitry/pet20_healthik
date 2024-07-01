@@ -1,7 +1,7 @@
 import { MainContext } from '../bot.interface';
 import { MiddlewareFn } from 'grammy';
-import { TelegramMessage } from 'src/modules/telegram-message/telegram-message.entity';
-import { TelegramMessageService } from 'src/modules/telegram-message/telegram-message.service';
+import { TelegramMessage } from 'src/telegram/telegram-message/telegram-message.entity';
+import { TelegramMessageService } from 'src/telegram/telegram-message/telegram-message.service';
 
 export function enableMessageHistory(
   telegramMessageService: TelegramMessageService,

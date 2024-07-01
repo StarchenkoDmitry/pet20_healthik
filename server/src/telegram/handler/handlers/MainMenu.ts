@@ -1,6 +1,6 @@
 import { Keyboard } from 'grammy';
 import { HandlerType } from '../handler.interface';
-import { MainContext } from 'src/modules/bot/bot.interface';
+import { MainContext } from 'src/telegram/bot/bot.interface';
 import { HandlerNameList } from '../handler-name-list';
 
 
