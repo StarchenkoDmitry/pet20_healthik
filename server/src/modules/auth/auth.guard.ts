@@ -2,11 +2,11 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 import { AuthService } from './auth.service';
-import { RefreshTokenService } from './refresh-token/refresh-token.service';
 
 import { REQ_KEY_USER } from './auth.constant';
 import { COOKIE_SESSION_TOKEN_KEY } from 'src/common/constants/session';
@@ -15,10 +15,7 @@ import { setCookieSession } from './auth.utils';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly refreshService: RefreshTokenService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = context.switchToHttp();
@@ -28,15 +25,21 @@ export class AuthGuard implements CanActivate {
     const sessionToken = request.signedCookies[COOKIE_SESSION_TOKEN_KEY];
     if (!sessionToken) return false;
 
-    const refreshResult = await this.refreshService.checkTokenLifetime(sessionToken);
-    if(refreshResult.needToUpdate){
-      setCookieSession(response, refreshResult.newToken);
+    const result = await this.authService.getUserAndRefreshSession(sessionToken);
+
+    if(result.type === "token-not-found"){
+      throw new UnauthorizedException();
     }
 
-    const user = await this.authService.findOneUserBySessionToken(sessionToken);
-    if (!user) return false;
+    if(result.type === "token-expired"){
+      throw new UnauthorizedException('the token is lifetime has expired');
+    }
+    
+    if(result.type === "token-refresh"){
+      setCookieSession(response, result.newToken);
+    }
 
-    request[REQ_KEY_USER] = user;
+    request[REQ_KEY_USER] = result.user;
     return true;
   }
 }

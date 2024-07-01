@@ -13,10 +13,12 @@ import {
   LogOutResult,
   SignInResult,
   SignUpResult,
+  UserAndSessionResult,
 } from './auth.interface';
 import { SignUpDto } from './dto/signup.dto';
 import { SignInDto } from './dto/signin.dto';
-import { TOKEN_LIFETIME } from 'src/config/auth';
+import { TOKEN_LIFETIME, TOKEN_UPDATE_TIME } from 'src/config/auth';
+import { RefreshTokenService } from './refresh-token/refresh-token.service';
 
 @Injectable()
 export class AuthService {
@@ -25,6 +27,7 @@ export class AuthService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Session)
     private readonly sessionRepository: Repository<Session>,
+    private readonly refreshService: RefreshTokenService,
   ) {}
 
   async signUp(userDto: SignUpDto): Promise<SignUpResult> {
@@ -76,7 +79,7 @@ export class AuthService {
       const newSession = new Session();
       newSession.user = user;
       newSession.createdAt = new Date();
-      newSession.expiresIn = new Date(new Date().getTime() + TOKEN_LIFETIME);
+      newSession.expiresIn = new Date(+new Date() + TOKEN_LIFETIME);
       newSession.token = generateRandomSessionToken();
       const saved = await this.sessionRepository.save(newSession);
       return { _t: 'seccess', token: saved.token };
@@ -91,14 +94,16 @@ export class AuthService {
     });
   }
 
-  async createSessionByUserId(userId: string): Promise<CreateSessionResult> {
+  async createSessionByUserId(
+    userId: string,
+  ): Promise<CreateSessionResult> {
     try {
       const user = new User();
       user.id = userId;
       const newSession = new Session();
       newSession.user = user;
       newSession.createdAt = new Date();
-      newSession.expiresIn = new Date(new Date().getTime() + TOKEN_LIFETIME);
+      newSession.expiresIn = new Date(+new Date() + TOKEN_LIFETIME);
       newSession.token = generateRandomSessionToken();
       const saved = await this.sessionRepository.save(newSession);
       return { _t: 'seccess', token: saved.token };
@@ -109,5 +114,44 @@ export class AuthService {
 
   async isEmailRegistered(email: string) {
     return await this.userRepository.existsBy({ email });
+  }
+
+  async getUserAndRefreshSession(
+    currentToken: string,
+  ): Promise<UserAndSessionResult> {
+    const session = await this.sessionRepository.findOne({
+      where: { token: currentToken },
+      select: { user: { id: true } },
+      relations: { user: true },
+    });
+
+    if (!session) {
+      return { type: 'token-not-found' };
+    }
+
+    const user = session.user;
+
+    const now = new Date();
+
+    if (+session.expiresIn < +now) {
+      return { type: 'token-not-found' };
+    }
+
+    if (+session.createdAt + TOKEN_UPDATE_TIME < +now) {
+      const refreshResult = await this.refreshService.refreshToken(
+        user.id,
+        currentToken,
+      );
+      return {
+        type: 'token-refresh',
+        user,
+        newToken: refreshResult.newToken,
+      };
+    }
+
+    return {
+      type: 'normal',
+      user,
+    };
   }
 }

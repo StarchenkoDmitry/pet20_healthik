@@ -26,3 +26,20 @@ export type CreateSessionResult =
   | { _t: 'failed' };
 
 export type LogOutResult = { logOuted: boolean };
+
+export type UserAndSessionResult =
+  | {
+      type: 'normal';
+      user: User;
+    }
+  | {
+      type: 'token-refresh';
+      user: User;
+      newToken: string;
+    }
+  | {
+      type: 'token-not-found';
+    }
+  | {
+      type: 'token-expired';
+    };
