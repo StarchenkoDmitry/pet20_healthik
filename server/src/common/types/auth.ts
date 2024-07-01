@@ -13,7 +13,7 @@ export class IsEmailRegisteredRequest {
   email!: string;
 }
 
-export type SignUpResponse = { id: string };
-export type SignInResponse = boolean;
+export type SignUpResponse = { userId: string };
+export type SignInResponse = { userId: string };
 export type LogoutResponse = boolean;
 export type IsEmailRegisteredResponse = boolean;
