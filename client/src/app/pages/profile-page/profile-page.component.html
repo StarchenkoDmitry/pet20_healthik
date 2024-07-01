@@ -1,0 +1,17 @@
+<div class="m-2 p-2 bg-slate-100 rounded-lg shadow-lg">
+  <h2 class="m-0 mb-2 text-gray-500">Your profile</h2>
+
+  <div *ngIf="me$ | async as me" class="flex flex-col flex-wrap gap-3 mb-4">
+
+    <div class="flex-auto">
+      <label for="name" class="font-bold block mb-2">Name</label>
+      <input pInputText class="w-full" id="name" [value]="me.name"/>
+    </div>
+
+    <div class="flex-auto">
+      <label for="email" class="font-bold block mb-2">Name</label>
+      <input pInputText class="w-full" id="email" [value]="me.email"/>
+    </div>
+
+  </div>
+</div>
