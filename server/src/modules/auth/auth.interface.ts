@@ -13,6 +13,7 @@ export type SignInResult =
   | {
       _t: 'seccess';
       token: string;
+      userId: string;
     }
   | {
       _t:

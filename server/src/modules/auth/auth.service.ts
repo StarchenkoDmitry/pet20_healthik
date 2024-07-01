@@ -61,7 +61,7 @@ export class AuthService {
 
     const newSession = await this.createSession(user);
     if (newSession._t === 'seccess') {
-      return { _t: 'seccess', token: newSession.token };
+      return { _t: 'seccess', token: newSession.token, userId: user.id };
     } else {
       return { _t: 'token-creation-error' };
     }

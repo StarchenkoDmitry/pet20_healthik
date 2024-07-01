@@ -19,7 +19,7 @@ import {
   UnauthorizedException,
   HttpException,
   HttpStatus,
-  Get,
+  BadRequestException,
 } from '@nestjs/common';
 import { SignUpDto } from './dto/signup.dto';
 import { SignInDto } from './dto/signin.dto';
@@ -49,7 +49,7 @@ export class AuthController {
 
     if (newSessionToken._t === 'seccess') {
       setCookieSession(res, newSessionToken.token);
-      return { id: singupResult.user.id };
+      return { userId: singupResult.user.id };
     } else {
       throw new HttpException(
         "i don't know what happened.",
@@ -63,13 +63,13 @@ export class AuthController {
     @Body() signInData: SignInDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<SignInResponse> {
-    const newSessionToken = await this.authService.signIn(signInData);
+    const signInResult = await this.authService.signIn(signInData);
 
-    if (newSessionToken._t === 'seccess') {
-      setCookieSession(res, newSessionToken.token);
-      return true;
+    if (signInResult._t === 'seccess') {
+      setCookieSession(res, signInResult.token);
+      return { userId: signInResult.userId };
     }
-    return false;
+    throw new BadRequestException("signin is failed");
   }
 
   @Post('logout')
