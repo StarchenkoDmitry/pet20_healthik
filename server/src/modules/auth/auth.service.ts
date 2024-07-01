@@ -121,7 +121,6 @@ export class AuthService {
   ): Promise<UserAndSessionResult> {
     const session = await this.sessionRepository.findOne({
       where: { token: currentToken },
-      select: { user: { id: true } },
       relations: { user: true },
     });
 
