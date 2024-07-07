@@ -1,0 +1,57 @@
+.profile-menu__container{
+  @apply mx-8 relative;
+}
+
+
+.btn_signin {
+  @apply no-underline ml-auto font-bold;
+}
+
+
+.avatar {
+  @apply cursor-pointer;
+}
+
+.avatar:hover {
+  // transition: all 0.12s;
+  // transform: scale(1.05);
+}
+
+
+.menu__wrapper{
+  @apply fixed inset-0;
+}
+
+.menu__container{
+  @apply mt-2 mx-auto max-w-[--w-lg];
+}
+
+.menu{
+  @apply relative mx-4 ml-auto p-1 max-w-64 bg-white rounded-lg shadow-2xl;
+  @apply border-2 border-solid border-blue-200;
+}
+
+.menu__panel{
+  @apply absolute left-0 right-0 top-0;
+  @apply flex justify-end;
+}
+.menu__close{
+  margin: .125rem;
+}
+
+.menu__avatar__container{
+  @apply mb-2 flex justify-center;
+}
+
+.menu__avatar{
+  @apply text-black;
+}
+
+
+
+.divider{
+  margin: .5rem .25rem;
+  height: .125rem;
+  border-radius: 50%;
+  background-color: rgb(212, 212, 212);
+}

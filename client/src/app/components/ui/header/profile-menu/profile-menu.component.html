@@ -1,0 +1,77 @@
+<div class="profile-menu__container">
+  <ng-container *ngIf="isAuthenticated; then user else signin"></ng-container>
+</div>
+
+
+<ng-template #signin>
+  <a href="/authorize" class="p-button btn_signin">Sign In</a>
+</ng-template>
+
+
+<ng-template #user>
+  <p-avatar
+    icon="pi pi-user"
+    class="avatar"
+    size="large"
+    shape="circle"
+    (click)="toggleMenu()"
+  />
+  <ng-container *ngIf="showMenu; then menu"></ng-container>
+</ng-template>
+
+<ng-template #menu>
+  <div
+    class="menu__wrapper"
+    (click)="toggleMenu()"
+  >
+    <div
+      class="menu__container"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="menu">
+        <div class="menu__panel">
+          <div class="menu__close">
+            <p-button
+              icon="pi pi-times"
+              [rounded]="true"
+              [text]="true"
+              severity="danger"
+              (click)="toggleMenu()"/>
+          </div>
+        </div>
+
+        <div class="menu__userinfo">
+          <div class="menu__avatar__container">
+            <a href="/profile">
+              <p-avatar
+                icon="pi pi-user"
+                class="menu__avatar"
+                styleClass=""
+                size="xlarge"
+                shape="circle"/>
+            </a>
+          </div>
+          <div class="menu__user-info">
+            <ng-container *ngIf="user$ | async as user else skelet_userinfo">
+              <span class="mb-2 block text-center">{{user.name}}</span>
+              <span class="mb-2 block text-center">{{user.email}}</span>
+            </ng-container>
+            <ng-template #skelet_userinfo>
+              <p-skeleton styleClass="mb-2" width="100%" height="1.25rem" />
+              <p-skeleton styleClass="mb-2" width="100%" height="1.25rem" />
+            </ng-template>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p-button
+          label="Logout"
+          styleClass="w-full"
+          [outlined]="true"
+          severity="danger"/>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
