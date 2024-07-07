@@ -7,8 +7,12 @@
 @tailwind utilities;
 
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 body {
   margin: 0;
+}
+
+:root {
+  --w-lg: 64rem;
 }
