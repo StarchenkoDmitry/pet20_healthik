@@ -4,7 +4,7 @@ import {
   DEFAULT_I18N_DIRECTORY, 
   DEFAULT_I18N_FIRST_NAME, 
   DEFAULT_I18N_LANGUAGE_CODE 
-} from 'src/config';
+} from 'src/config/bot';
 
 
 export function enableTranslator() {

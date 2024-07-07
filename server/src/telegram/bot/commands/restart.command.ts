@@ -3,7 +3,7 @@ import { MainContext } from '../bot.interface';
 import { 
   DEFAULT_HANDLER_NAME, 
   DEFAULT_I18N_LANGUAGE_CODE 
-} from 'src/config';
+} from 'src/config/bot';
 
 
 export async function restartCommand(ctx: CommandContext<MainContext>) {

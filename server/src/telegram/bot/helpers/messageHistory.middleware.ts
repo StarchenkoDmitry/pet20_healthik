@@ -8,10 +8,12 @@ export function enableMessageHistory(
 ): MiddlewareFn<MainContext> {
   return async (ctx, next) => {
     const message = ctx.message;
+    console.log("message:",message);
+    
 
     if (message) {
       const msg = new TelegramMessage();
-      msg.id = message.message_id.toString()
+      msg.id = message.message_id.toString();
       msg.text = message.text;
       msg.date = new Date(message.date * 1000);
       await telegramMessageService.save(msg);

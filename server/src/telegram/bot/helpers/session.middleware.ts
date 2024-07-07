@@ -4,7 +4,7 @@ import { TelegramUserService } from 'src/telegram/telegram-user/telegram-user.se
 import { 
   DEFAULT_HANDLER_NAME_ON_INITIALIZATION, 
   DEFAULT_I18N_LANGUAGE_CODE 
-} from 'src/config';
+} from 'src/config/bot';
 
 
 export function enableSession(
