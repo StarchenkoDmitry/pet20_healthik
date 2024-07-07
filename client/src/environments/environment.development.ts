@@ -1,6 +1,8 @@
 import { IEnvironment } from './environment.interface';
 
+const BASE_URL = `http://${window.location.hostname}:3000/`;
+
 export const environment: IEnvironment = {
   production: false,
-  baseUrl: 'http://127.0.0.1:3000/',
+  baseUrl: BASE_URL,
 };
