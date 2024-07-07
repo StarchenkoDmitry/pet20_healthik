@@ -10,7 +10,9 @@
           <ng-container *ngTemplateOutlet="url__about_us"></ng-container>
         </ul>
       </nav>
-      <a href="/authorize" class="p-button btn_authorize">Sign in</a>
+      <div class="ml-auto">
+        <profile-menu></profile-menu>
+      </div>
     </div>
 
     <div class="block-btn-menu">
@@ -50,10 +52,10 @@
           <ng-container *ngTemplateOutlet="url__about_us"></ng-container>
         </ul>
       </nav>
-
     </div>
   </div>
 </ng-template>
+
 
 <ng-template #url__new_conversation>
   <li>
