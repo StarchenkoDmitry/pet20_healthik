@@ -41,8 +41,10 @@ async function bootstrap() {
     }),
   );
 
-  app.useGlobalFilters(new GlobalExceptionHandler());
-  app.useGlobalFilters(new HttpExceptionFilter());
+  const globalExceptionHandler = app.get(GlobalExceptionHandler);
+  app.useGlobalFilters(globalExceptionHandler);
+  const httpExceptionHandler = app.get(HttpExceptionFilter);
+  app.useGlobalFilters(httpExceptionHandler);
 
   await app.listen(3000);
 }

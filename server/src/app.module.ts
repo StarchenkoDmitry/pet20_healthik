@@ -9,6 +9,8 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RoleModule } from './modules/user/role/role.module';
 import { TelegramUserModule } from './telegram/telegram-user/telegram-user.module';
+import { GlobalExceptionHandler } from './shared/filters/global-exception.filter';
+import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 
 @Module({
   imports: [
@@ -24,6 +26,10 @@ import { TelegramUserModule } from './telegram/telegram-user/telegram-user.modul
     BotModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    GlobalExceptionHandler,
+    HttpExceptionFilter
+  ],
 })
 export class AppModule {}
