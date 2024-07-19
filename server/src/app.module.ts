@@ -11,6 +11,7 @@ import { RoleModule } from './modules/user/role/role.module';
 import { TelegramUserModule } from './telegram/telegram-user/telegram-user.module';
 import { GlobalExceptionHandler } from './shared/filters/global-exception.filter';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
+import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
     UserModule,
     AuthModule,
     RoleModule,
+    ChatModule,
 
     TelegramUserModule,
     TelegramMessageModule,

@@ -13,5 +13,6 @@ import { Role } from './role/role.entity';
   ],
   controllers: [UserController],
   providers: [UserService],
+  exports:[UserService],
 })
 export class UserModule {}
