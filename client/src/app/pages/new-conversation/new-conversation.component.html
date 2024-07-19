@@ -1,0 +1,64 @@
+<div class="mx-2">
+
+  <div class="m-4 mx-auto p-4 _max-w-[26rem] bg-slate-100 rounded-2xl ">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2 class="m-0 font-mono text-center font-medium">
+        Create new conversation
+      </h2>
+
+      <div class="mt-6">
+        <p-floatLabel class="block">
+          <input
+            id="title"
+            class="w-full"
+            formControlName="title"
+            pInputText/>
+          <label for="title">Title</label>
+        </p-floatLabel>
+        <small
+          *ngIf="title.invalid && (title.dirty || title.touched)"
+          class="px-2 pt-2 text-sm font-medium block p-error"
+        >
+          <p *ngIf="title.errors?.['required']">Title is required</p>
+          <p *ngIf="title.errors?.['minlength']">Min title lenght {{minTitleLanght}}</p>
+          <p *ngIf="title.errors?.['maxlength']">Max title lenght {{maxTitleLanght}}</p>
+        </small>
+      </div>
+
+      <div class="mt-8">
+        <p-floatLabel>
+          <textarea
+            id="description"
+            rows="5"
+            autoResize="true"
+            class="w-full"
+            formControlName="description"
+            pInputTextarea>
+          </textarea>
+          <label for="description">Description</label>
+        </p-floatLabel>
+        <small
+          *ngIf="description.invalid && (description.dirty || description.touched)"
+          class="px-2 pt-2 text-sm font-medium block p-error"
+        >
+          <p *ngIf="description.errors?.['required']">Description is required</p>
+          <p *ngIf="description.errors?.['minlength']">Min description lenght {{minDescriptionLanght}}</p>
+          <p *ngIf="description.errors?.['maxlength']">Max description lenght {{maxDescriptionLanght}}</p>
+        </small>
+      </div>
+
+      <div class="mt-4">
+        <p-button
+          [disabled]="!form.valid || loading"
+          label="Create new conversation"
+          size="small"
+          type="submit"
+        />
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
