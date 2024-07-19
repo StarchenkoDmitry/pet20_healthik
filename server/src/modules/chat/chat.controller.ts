@@ -13,6 +13,7 @@ import { User } from '../user/user.entity';
 import { ChatService } from './chat.service';
 import { CreateNormalChat } from './dto/create-normal-chat.dto';
 import { CreateConsultationChat } from './dto/create-consultation-chat.dto';
+import { CreateConversationChatResponse } from 'src/common/types/chat';
 
 @Controller()
 export class ChatController {
@@ -36,7 +37,8 @@ export class ChatController {
   async createConsultation(
     @GetUser() user: User, 
     @Body() { title, description }: CreateConsultationChat
-  ) {
-    return await this.chatService.createConsultationChat(user.id,title,description)
+  ): Promise<CreateConversationChatResponse> {
+    const chatId = await this.chatService.createConsultationChat(user.id,title,description)
+    return { chatId };
   }
 }
