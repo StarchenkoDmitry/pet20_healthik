@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { ChatService } from './chat.service';
 import { CreateNormalChat } from './dto/create-normal-chat.dto';
 import { CreateConsultationChat } from './dto/create-consultation-chat.dto';
 import { CreateConversationChatResponse } from 'src/common/types/chat';
+import { Message } from './entites/message.entity';
 
 @Controller()
 export class ChatController {
@@ -41,4 +43,20 @@ export class ChatController {
     const chatId = await this.chatService.createConsultationChat(user.id,title,description)
     return { chatId };
   }
+  
+  @Post('chat/:chatId/message')
+  @UseGuards(AuthGuard)
+  async addMessage(
+    @GetUser() user: User, 
+    @Param('chatId') chatId: string,
+    @Body() { text }: { text: string },
+  ): Promise<Message> {
+    const newMessage = await this.chatService.createMessageQuickly(
+      chatId, 
+      user.id, 
+      text
+    );
+    return newMessage;
+  }
+  
 }
