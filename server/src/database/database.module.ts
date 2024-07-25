@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { parseBoolean } from 'src/shared/utils/parser/boolean-parser';
 
 @Module({
   imports: [
@@ -14,11 +15,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         const password = config.get('DATABASE_PASSWORD');
         const synchronizeRow = config.get('DATABASE_SYNCHRONIZE');
         const migrationsRunRow = config.get('DATABASE_MIGRATIONS_RUN');
+        const rowLogging = config.get('DATABASE_LOGGING_IN_CONSOLE');
 
         const port = parseInt(portRow, 10);
 
         const synchronize = synchronizeRow === 'True';
         const migrationsRun = migrationsRunRow === 'True';
+        const isLogging = parseBoolean(rowLogging);
 
         return {
           type: 'postgres',
@@ -31,7 +34,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           username: username,
           password: password,
 
-          logging: true,
+          logging: isLogging,
 
           synchronize: synchronize,
           migrationsRun: migrationsRun,
