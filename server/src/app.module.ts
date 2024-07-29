@@ -12,9 +12,11 @@ import { TelegramUserModule } from './telegram/telegram-user/telegram-user.modul
 import { GlobalExceptionHandler } from './shared/filters/global-exception.filter';
 import { HttpExceptionFilter } from './shared/filters/http-exception.filter';
 import { ChatModule } from './modules/chat/chat.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
-  imports: [
+  imports: [ 
+    EventEmitterModule.forRoot(),
     ConfigModule.forRoot({ cache: true, isGlobal: true }),
     DatabaseModule,
 
