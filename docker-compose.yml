@@ -1,0 +1,44 @@
+services:
+  db:
+    image: "postgres:14.5"
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: "pet20"
+  server:
+    build: ./server
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      COOKIE_SECRET: ${COOKIE_SECRET}
+      
+      DATABASE_HOST: "db"
+      DATABASE_PORT: "5432"
+      DATABASE_USERNAME: "postgres"
+      DATABASE_PASSWORD: "1234"
+      DATABASE_NAME: "pet20"
+      
+      DATABASE_SYNCHRONIZE: ${DATABASE_SYNCHRONIZE}
+      DATABASE_MIGRATIONS_RUN: ${DATABASE_MIGRATIONS_RUN}
+      DATABASE_LOGGING_IN_CONSOLE: ${DATABASE_LOGGING_IN_CONSOLE}
+      
+      ENABLE_GLOBAL_EXCEPTION_LOGGING_IN_CONSOLE: ${ENABLE_GLOBAL_EXCEPTION_LOGGING_IN_CONSOLE}
+      ENABLE_HTTP_EXCEPTION_LOGGING_IN_CONSOLE: ${ENABLE_HTTP_EXCEPTION_LOGGING_IN_CONSOLE}
+      ENABLE_ALL_WS_EXCEPTION_LOGGING_IN_CONSOLE: ${ENABLE_ALL_WS_EXCEPTION_LOGGING_IN_CONSOLE}
+      
+      ENABLE_ADMIN_SECRET: ${ENABLE_ADMIN_SECRET}
+      ADMIN_SECRET: ${ADMIN_SECRET}
+      
+      CORS_DEV: ${CORS_DEV}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+  client:
+    build: ./client
+    ports:
+      - 8080:8080
+    depends_on:
+      - server
